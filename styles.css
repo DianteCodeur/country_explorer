@@ -120,6 +120,11 @@ main {
     align-items: center;
 }
 
+.country-detail img {
+    width: 500px;
+    height: auto;
+}
+
 .country-info-detail {
     margin-left: 35px;
     margin-top: 10px;
