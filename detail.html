@@ -6,18 +6,30 @@
     <title>Country Details</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
-    <script src='detail.js'></script>
 </head>
 
 <body>
     
-    <div id="detailApp">
-        <h1>Country Details</h1>
-        <div id="countryDetail"></div>
-        <button onclick="goBack()">Back to List</button>
-    </div>
+    <header id="app">
+        <div id="headerContent">
+        <img src="assets/world.png" alt="Country Explorer Logo" id="logo">
+        <h1>Country Explorer</h1>
+        </div>
+    </header>
 
+    <main>
 
+        <button id="back-button" onclick="goBack()">Back</button>
+
+        <div id="countryDetail">
+
+        </div>
+
+    </main>
+
+    <script src="data.js"></script>
+    <script src='detail.js'></script>
+    
 
 </body>
 

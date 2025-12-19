@@ -22,13 +22,13 @@
 
             <div id="filters">
             <label for="searchInput">Search by Country Name:</label>
-            <input type="text" id="searchInput" placeholder="Enter Country Name" onkeyup="filterCountries()">
+            <input type="text" id="searchInput" placeholder="Enter Country Name" onkeyup="filterData()">
             </div>
 
             <div id="filters">
             <label for="regionFilter">Select a Region:</label>
             <select id="regionFilter" onchange="filterByRegion()">
-                <option value="">All Regions</option>
+                <option value="All Regions">All Regions</option>
                 <option value="Africa">Africa</option>
                 <option value="Americas">Americas</option>
                 <option value="Asia">Asia</option>
@@ -60,7 +60,7 @@
 
             </div>
 
-            <button id="loadMoreBtn" onclick="loadMoreCountries()">Show More</button>
+            <button id="loadMoreBtn" onclick="showMoreHandler()">Show More</button>
 
         </div>
     </main>
