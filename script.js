@@ -1,25 +1,45 @@
-let visibleCount = 12; // 🔑 number of countries to show initially
-let currentData = data; // 🔑 to hold the filtered data
+let visibleCount = 12; // 🔑 to hold the filtered data
+let data = []; // 🔑 to hold all country data
+let currentData = []; // 🔑 to hold currently displayed data
 
-function populateCountryCards(data) { // 🔑 function to populate country cards
+document.addEventListener("DOMContentLoaded", () => {
+    fetchCountries();
+});
+
+function fetchCountries() { // 🔑 function to fetch country data
+    fetch("/api/countries")
+        .then(res => res.json())
+        .then(result => {
+        data = result;
+        currentData = data; // Initialize currentData with all data
+        populateCountryCards(currentData);
+        console.log("Countries:", data);
+  })
+  .catch(err => console.error(err));
+}
+
+
+function populateCountryCards(dataToDisplay) { // 🔑 function to populate country cards
+
+    dataToDisplay.sort((a, b) => a.name.official.localeCompare(b.name.official)); // Sort countries alphabetically
 
     const container = document.getElementById("countries"); // Get the container element
 
     container.innerHTML = ""; // Clear existing content
 
-    const loopCounter = data.length; // Total number of countries in the data
- 
+    const loopCounter = dataToDisplay.length; // Total number of countries in the data
+
     if (visibleCount >= loopCounter) { // Hide "Show More" button if all countries are displayed
         document.getElementById("loadMoreBtn").style.display = "none";
     } else {
         document.getElementById("loadMoreBtn").style.display = "block";
     }
 
-    if (!data || loopCounter === 0) { // Handle case when no data is available
+    if (!dataToDisplay || loopCounter === 0) { // Handle case when no data is available
         console.error("No country data available");
     } else {
 
-        data.slice(0, visibleCount).forEach((country, index) => { // Loop through the data up to visibleCount
+        dataToDisplay.slice(0, visibleCount).forEach((country, index) => { // Loop through the data up to visibleCount
 
         const div = document.createElement("div"); // Create a new div for each country card
 
@@ -39,14 +59,12 @@ function populateCountryCards(data) { // 🔑 function to populate country cards
                 </div>
             </div>
         `;
-
+        
         container.appendChild(div); // Append the country card to the container
-        console.log(data.length); // Log the length of the data array
+        
     });
     }
 }
-
-populateCountryCards(data); // Initial population of country cards
 
 function filterByRegion(region) { // 🔑 function to filter by region
     currentData = data.filter(
@@ -103,7 +121,7 @@ function showMoreHandler() { // 🔑 function to show more countries
 }
 
 function getFormattedNames(languages) { // 🔑 function to format languages and currencies
-    return languages.map(languages => languages.name).join(", ");
+    return languages.map(languages => languages.name || languages.symbol || languages).join(", ");
 }
 
 function countryCardHandler(index) { // 🔑 function to handle country card click and navigate to detail page
@@ -122,4 +140,3 @@ function countryCardHandler(index) { // 🔑 function to handle country card cli
 
     window.location.href = "detail.html" + queryString; // Navigate to detail page with query parameters
 }
-
